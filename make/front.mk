@@ -16,8 +16,10 @@ front-npm-command: ## Launch any npm command with COMMAND parameter
 ##
 ## Front qualimetry
 ## ----------
-.PHONY: front-lint front-lint-fix
+.PHONY: front-lint front-lint-fix front-type-check
 front-lint: ## Lint front with ESLINT
 	$(DOCKER_COMPOSE) run --user ${LOCAL_USER_UID}:${LOCAL_USER_GID} --rm node sh -c "npm run lint;";
 front-lint-fix: ## Lint front and fix resolvable errors with ESLINT
 	$(DOCKER_COMPOSE) run --user ${LOCAL_USER_UID}:${LOCAL_USER_GID} --rm node sh -c "npm run lint:fix;";
+front-type-check: ## Check TS types
+	$(DOCKER_COMPOSE) run --user ${LOCAL_USER_UID}:${LOCAL_USER_GID} --rm node sh -c "npx nuxi typecheck;";
