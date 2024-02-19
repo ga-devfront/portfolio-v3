@@ -1,0 +1,36 @@
+/****** PRIMITIVES ******/
+
+// FONTS
+
+// COLORS
+// Common
+$black: #040404;
+$white: #fdfdfd;
+// Primary
+$primary-300: #2a709e;
+$primary-500: #153449;
+$primary-default: $primary-500;
+// Secondary
+$secondary-500: #592b75;
+$secondary-700: #401a60;
+$secondary-default: $secondary-500;
+// Grey
+$grey-300: #292935;
+$grey-500: #20202c;
+$grey-900: #181b22;
+$grey-background: $grey-900;
+
+/****** UTILITIES ******/
+
+// SIZER
+$sizer: 1rem;
+
+// RADIUS
+$radius-0: 0; // 0
+$radius-circle: 100%; // 100%
+$radius-sm: ($sizer * 0.25); // 4px
+$radius-md: ($sizer * 0.5); // 8px
+$radius-lg: $sizer; // 16px
+$radius-xl: ($sizer * 2); // 32px
+$radius-2xl: ($sizer * 8); // 128px
+$radius-3xl: ($sizer * 22.5); // 360px

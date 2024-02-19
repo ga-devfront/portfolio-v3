@@ -1,7 +1,8 @@
 <template>
-  <div>
-    <button class="btn btn-primary">
-      Hello World
-    </button>
-  </div>
+  <nuxt-layout>
+    <nuxt-page />
+  </nuxt-layout>
+  <fixed-background />
 </template>
+<script setup lang="ts">
+</script>

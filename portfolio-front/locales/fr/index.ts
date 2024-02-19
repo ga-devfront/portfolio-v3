@@ -1,3 +1,4 @@
 export default {
-  helloWorld: 'Bonjour Monde !'
+  helloWorld: 'Bonjour Monde !',
+  logoAlt: 'AG logo'
 }
