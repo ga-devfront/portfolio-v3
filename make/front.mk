@@ -25,5 +25,5 @@ front-type-check: ## Check TS types
 	$(DOCKER_COMPOSE) run --user ${LOCAL_USER_UID}:${LOCAL_USER_GID} --rm node sh -c "npx nuxi typecheck;";
 front-style-lint: ## Lint front SCSS files
 	$(DOCKER_COMPOSE) run --user ${LOCAL_USER_UID}:${LOCAL_USER_GID} --rm node sh -c "npm run scss-lint;";
-front-style-lint: ## Lint front and fix SCSS files
+front-style-lint-fix: ## Lint front and fix SCSS files
 	$(DOCKER_COMPOSE) run --user ${LOCAL_USER_UID}:${LOCAL_USER_GID} --rm node sh -c "npm run scss-fix;";
