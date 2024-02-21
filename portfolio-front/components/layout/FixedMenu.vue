@@ -1,5 +1,6 @@
 <template>
-  <nav class="fixed-menu">
+  <nav class="fixed-menu glow-effect-container" ref="fixedMenu">
+    <div class="glow-effect"></div>
     <ul class="fixed-menu__list">
       <LayoutMenuItem
         v-for="menuItem in menuItems"
@@ -12,6 +13,7 @@
 
 <script setup lang="ts">
 import type { MenuItemType } from "~/components/layout/ts/FixedMenu";
+import {useGlowEffect} from "~/composables/useGlowEffect";
 
 const localPath = useLocalePath();
 
@@ -37,4 +39,18 @@ const menuItems : Array<MenuItemType> = [
     icon: 'ri-message-3-fill'
   },
 ]
+
+const fixedMenu : HTMLDivElement | null = ref()
+
+const glowEffect = {
+  proximity: 5,
+  opacity: 0,
+}
+
+onMounted(() => {
+  document.body.addEventListener('pointermove', (event) => useGlowEffect(event, fixedMenu.value, glowEffect))
+})
+onUnmounted(() => {
+  document.body.removeEventListener('pointermove', (event) => useGlowEffect(event, fixedMenu.value, glowEffect))
+})
 </script>

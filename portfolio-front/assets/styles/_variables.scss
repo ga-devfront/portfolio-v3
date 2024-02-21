@@ -43,4 +43,10 @@
 // SPACER
   --global-margin: calc(var(--sizer) * 1.5);
   --header-height: calc(var(--sizer) * 6);
+
+// BREAKPOINTS
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1200px;
 }

@@ -1,0 +1,102 @@
+@property --start {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+.glow-effect-container {
+  --gradient: conic-gradient(
+    from 180deg,
+    var(--white) 0deg,
+    var(--primary-100) 72deg,
+    var(--primary-300) 144deg,
+    var(--primary-100) 216deg,
+    hsl(0deg 0% 98% / 1) 1turn
+  );
+  --border-width: var(--border-glow, 2px);
+  --active: 0.15;
+  --start: 0;
+  --spread: var(--spread-glow, 50);
+  --default-radius: var(--radius-glow, --radius-md);
+  --default-blur: var(--blur-glow, 10px);
+
+  &:is(:hover, :focus-visible) {
+    z-index: 2;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--border);
+    background-attachment: fixed;
+    border: var(--border-width) solid transparent;
+    border-radius: var(--default-radius);
+    opacity: var(--active);
+    pointer-events: none;
+    transition: opacity 1s;
+    mask:
+      linear-gradient(#00000000, #00000000),
+      conic-gradient(
+        from calc(((var(--start) + (var(--spread) * 0.25)) - (var(--spread) * 1.5)) * 1deg),
+        hsl(0deg 0% 100% / 0.15) 0deg,
+        white,
+        hsl(0deg 0% 100% / 0.15) calc(var(--spread) * 2.5deg)
+      );
+    mask-clip: padding-box, border-box;
+    mask-composite: intersect;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--gradient);
+    background-attachment: fixed;
+    border: var(--border-width) solid transparent;
+    border-radius: var(--default-radius);
+    filter: brightness(1.5);
+    opacity: var(--active, 0);
+    pointer-events: none;
+    transition: opacity 1s;
+    mask:
+      linear-gradient(#00000000, #00000000),
+      conic-gradient(
+        from calc(((var(--start) + (var(--spread) * 0.25)) - (var(--spread) * 0.5)) * 1deg),
+        #00000000 0deg,
+        #ffffff,
+        #00000000 calc(var(--spread) * 0.5deg)
+      );
+    mask-clip: padding-box, border-box;
+    mask-composite: intersect;
+  }
+
+  .glow-effect {
+    position: absolute;
+    inset: 0;
+    filter: blur(var(--default-blur));
+    pointer-events: none;
+
+    &::after, &::before {
+      content: "";
+      position: absolute;
+      inset: -5px;
+      background: var(--gradient);
+      background-attachment: fixed;
+      border: 2px solid transparent;
+      border-radius: var(--default-radius);
+      opacity: var(--active);
+      transition: opacity 1s;
+      mask:
+        linear-gradient(#00000000, #00000000),
+        conic-gradient(
+          from calc((var(--start) - (var(--spread) * 0.5)) * 1deg),
+          #000000 0deg,
+          #ffffff,
+          #00000000 calc(var(--spread) * 1deg)
+        );
+      mask-composite: intersect;
+      mask-clip: padding-box, border-box;
+    }
+  }
+}
