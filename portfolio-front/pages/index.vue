@@ -1,5 +1,6 @@
 <template>
   <div>
+    HOME
     <!--    <Menu />-->
     <!--    <p>{{ $t('helloWorld') }}</p>-->
     <!--    <div>-->
@@ -9,5 +10,5 @@
   </div>
 </template>
 <script setup lang="ts">
-const switchLocalePath = useSwitchLocalePath()
+// const switchLocalePath = useSwitchLocalePath()
 </script>

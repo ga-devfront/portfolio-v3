@@ -1,7 +1,7 @@
 #logo {
   $logo-font-size: 2rem;
   display: flex;
-  color: $white;
+  color: var(--white);
   text-decoration: none;
   user-select: none;
 
@@ -10,8 +10,9 @@
 
     .logo__image-fill {
       animation: 2s logoFill linear forwards;
-      fill: rgba($white, 0);
-      stroke: $white;
+      fill: var(--white);
+      fill-opacity: 0;
+      stroke: var(--white);
       stroke-dasharray: 733; // exact stroke length
       stroke-dashoffset: 733;
       stroke-linecap: round;
@@ -46,11 +47,11 @@
 
   @keyframes logoFill {
     70% {
-      fill: rgba($white, 0);
+      fill-opacity: 0;
     }
 
     100% {
-      fill: rgba($white, 1);
+      fill-opacity: 1;
       stroke-dashoffset: 0;
     }
   }

@@ -1,7 +1,6 @@
 <template>
-  <nuxt-layout>
-    <nuxt-page />
-  </nuxt-layout>
+  <div>CONTACT</div>
 </template>
+
 <script setup lang="ts">
 </script>

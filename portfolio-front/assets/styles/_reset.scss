@@ -26,7 +26,8 @@ ol[role='list'] {
 
 /* Set core body defaults */
 body {
-  margin: 1.5rem;
+  margin: var(--global-margin);
+  font-family: var(--primary-font-family);
   line-height: 1.5;
 }
 
