@@ -192,13 +192,14 @@
           padding: 0 0.5rem;
           list-style: none;
           border-radius: $radius-sm;
+          transition: .3s color ease-in-out, .3s background-color ease-in-out;
 
           &.menu-lang__option--current {
-            background-color: rgba($primary-100, 0.2);
+            color: $primary-100;
           }
 
           &.menu-lang__option--selected, &:hover {
-            color: $primary-100;
+            background-color: rgba($primary-100, 0.2);
           }
         }
       }
