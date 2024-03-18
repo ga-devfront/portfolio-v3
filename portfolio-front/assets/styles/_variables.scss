@@ -3,9 +3,6 @@
 
 // FONTS
   --primary-font-family: "Plus Jakarta Sans", sans serif;
-
-// COLORS
-// Common
   --black: #040404;
   --white: #fdfdfd;
 // Primary
@@ -41,7 +38,6 @@
   --radius-3xl: calc(var(--sizer) * 22.5); // 360px
 
 // SPACER
-  --global-margin: calc(var(--sizer) * 1.5);
   --header-height: calc(var(--sizer) * 6);
 
 // BREAKPOINTS
@@ -49,4 +45,60 @@
   --breakpoint-md: 768px;
   --breakpoint-lg: 992px;
   --breakpoint-xl: 1200px;
+
+// COLORS
+// Common
+  $black: #040404;
+  $white: #fdfdfd;
 }
+
+  /****** PRIMITIVES ******/
+
+  // FONTS
+  $primary-font-family: "Plus Jakarta Sans", sans serif;
+
+  // COLORS
+  // Common
+  $black: #040404;
+  $white: #fdfdfd;
+  // Primary
+  $primary-100: #92ccf3;
+  $primary-300: #2a709e;
+  $primary-500: #153449;
+  $primary-default: $primary-500;
+  // Secondary
+  $secondary-100: #ac79ca;
+  $secondary-200: #864da7;
+  $secondary-500: #592b75;
+  $secondary-700: #401a60;
+  $secondary-default: $secondary-500;
+  // Grey
+  $grey-300: #292935;
+  $grey-500: #20202c;
+  $grey-900: #181b22;
+  $grey-background: $grey-900;
+
+  /****** UTILITIES ******/
+
+  // SIZER
+  $sizer: 1rem;
+
+  // RADIUS
+  $radius-0: 0; // 0
+  $radius-circle: 100%; // 100%
+  $radius-sm: calc($sizer * 0.25); // 4px
+  $radius-md: calc($sizer * 0.5); // 8px
+  $radius-lg: $sizer; // 16px
+  $radius-xl: calc($sizer * 2); // 32px
+  $radius-2xl: calc($sizer * 8); // 128px
+  $radius-3xl: calc($sizer * 22.5); // 360px
+
+  // SPACER
+  $header-height: calc($sizer * 6);
+
+  // BREAKPOINTS
+  $breakpoint-sm: 576px;
+  $breakpoint-md: 768px;
+  $breakpoint-lg: 992px;
+  $breakpoint-xl: 1200px;
+

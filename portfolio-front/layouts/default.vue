@@ -1,9 +1,8 @@
 <template>
   <div class="default-layout">
-    <header class="header">
-      <LayoutAnimatedLogo />
+    <header class="header container">
+      <LayoutFixedMenu />
     </header>
-    <LayoutFixedMenu />
     <div class="content">
       <slot />
     </div>
