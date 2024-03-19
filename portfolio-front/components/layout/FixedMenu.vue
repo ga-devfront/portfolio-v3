@@ -87,9 +87,10 @@ const closeMenuOutside = (event: Event):void => {
 const toggleMenu = (bool: boolean): void => {
   menuOpen.value = bool;
   if (menuOpen.value) {
+    document.body.classList.add('no-scroll');
     document.addEventListener("click", closeMenuOutside);
   } else {
-
+    document.body.classList.remove('no-scroll');
     document.removeEventListener("click", closeMenuOutside);
   }
 }

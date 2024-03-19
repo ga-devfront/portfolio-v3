@@ -29,6 +29,11 @@ body {
   margin: 0;
   font-family: var(--primary-font-family);
   line-height: 1.5;
+  @media screen and (max-width: $breakpoint-md) {
+    &.no-scroll {
+      overflow: hidden;
+    }
+  }
 }
 
 /* Set shorter line heights on headings and interactive elements */
