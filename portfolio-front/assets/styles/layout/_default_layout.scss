@@ -9,6 +9,13 @@
   .container {
     margin: 0 auto;
     width: 1000px;
-    max-width: calc(100% - 40px);
+    max-width: calc(100% - 2.5rem);
+  }
+
+  @media screen and (max-width: $breakpoint-md) {
+    .header {
+      padding-top: 1rem;
+      height: 4rem;
+    }
   }
 }

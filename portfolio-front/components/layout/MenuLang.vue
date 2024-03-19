@@ -4,6 +4,12 @@
     class="menu-lang"
     :class="{ 'menu-lang--open': menuOpen }"
   >
+    <label
+      id="menu-lang__label"
+      class="sr-only"
+    >
+      {{ $t('action.changeLanguage') }}
+    </label>
     <button
       id="lang-select"
       ref="comboEl"
@@ -12,13 +18,15 @@
       :aria-expanded="menuOpen"
       aria-haspopup="listbox"
       aria-controls="lang-choices"
+      aria-labelledby="menu-lang__label"
       :aria-activedescendant="`${prefixLangId}${activeIndex}`"
       tabindex="0"
-      :name="$t('action.changeLanguage')"
-      :aria-label="$t('action.changeLanguage')"
     >
       <span>{{ currentLocale.name }}</span>
-      <i class="icon-dropdown ri-arrow-drop-down-line" />
+      <i
+        class="icon-dropdown ri-arrow-drop-down-line"
+        aria-hidden="true"
+      />
     </button>
     <ul
       id="lang-choices"
@@ -26,6 +34,7 @@
       class="menu-lang__options"
       role="listbox"
       tabindex="-1"
+      aria-labelledby="menu-lang__label"
     >
       <li
         v-for="(option, index) in options"
@@ -47,25 +56,25 @@
 <script setup lang="ts">
 const { locale, locales, setLocale } = useI18n();
 
+const currentLocale: object = computed(() => {
+  return (locales.value).filter(i => i.code === locale.value)[0];
+})
+const currentLocaleIndex: number = computed(() => {
+  return options.value.indexOf(currentLocale.value.name);
+})
+const options: Array<string> = computed(() => {
+  return locales.value.map((locale) => locale.name);
+})
+
 const comboContainer: null|HTMLLIElement = ref();
 const comboEl: null|HTMLButtonElement = ref();
 const listboxEl: null|HTMLUListElement = ref();
 const optionsEl: Array<HTMLLIElement> = ref([]);
 
-const menuOpen = ref(false);
-const activeIndex = ref(0);
-const searchString = ref('');
-const searchTimeout = ref(null);
-
-const currentLocale = computed(() => {
-  return (locales.value).filter(i => i.code === locale.value)[0];
-})
-const currentLocaleIndex = computed(() => {
-  return options.value.indexOf(currentLocale.value.name);
-})
-const options = computed(() => {
-  return locales.value.map((locale) => locale.name);
-})
+const menuOpen: boolean = ref(false);
+const activeIndex: number = ref(currentLocaleIndex.value);
+const searchString: string = ref('');
+const searchTimeout: null|ReturnType<typeof setTimeout> = ref(null);
 
 const prefixLangId = 'lang-';
 const SelectActions = {
@@ -86,20 +95,20 @@ const SelectActions = {
 /*
  * Helper functions
  */
-const getOptionCode = (index) => {
+const getOptionCode = (index: number): string => {
   const optionName = options.value[index]
   const locale = (locales.value).filter(i => i.name === optionName)[0]
   return locale.code
 }
 
-const filterOptions = (options = [], filter, exclude = []) => {
+const filterOptions = (options: array = [], filter: srting, exclude: array = []): array => {
   return options.filter((option) => {
     const matches = option.toLowerCase().indexOf(filter.toLowerCase()) === 0;
     return matches && exclude.indexOf(option) < 0;
   });
 }
 
-const getActionFromKey = (event) => {
+const getActionFromKey = (event: Event): number => {
   const { key, altKey, ctrlKey, metaKey } = event;
   const openKeys = ['ArrowDown', 'ArrowUp', 'Enter', ' '];
   if (!menuOpen.value && openKeys.includes(key)) {
@@ -140,7 +149,7 @@ const getActionFromKey = (event) => {
   }
 }
 
-const getIndexByLetter = (options, filter, startIndex = 0) => {
+const getIndexByLetter = (options: array, filter: string, startIndex: number = 0): number => {
   const orderedOptions = [
     ...options.slice(startIndex),
     ...options.slice(0, startIndex),

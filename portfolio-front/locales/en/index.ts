@@ -7,6 +7,7 @@ export default {
     projects: 'Projects',
     contact: 'Contact',
   },
+  menuLabel: 'Main Menu',
   action: {
     changeLanguage: 'Change language'
   }
