@@ -1,9 +1,12 @@
 module.exports = {
   root: true,
-  extends: [
-    "@nuxt/eslint-config",
-    "@nuxt/eslint-config",
-    "plugin:prettier/recommended",
-  ],
+  env: {
+    browser: true,
+    node: true,
+  },
+  extends: ["@nuxt/eslint-config", "plugin:prettier/recommended"],
   parser: "vue-eslint-parser",
+  parserOptions: {
+    parser: "@typescript-eslint/parser",
+  },
 };

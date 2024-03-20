@@ -1,5 +1,5 @@
 <template>
-  <div aria-hidden="true" id="background">
+  <div id="background" aria-hidden="true">
     <div class="background__gradiant"></div>
     <svg class="background__grid">
       <defs>

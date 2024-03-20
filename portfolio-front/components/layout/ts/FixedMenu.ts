@@ -1,5 +1,7 @@
+import type { RouteLocationRaw } from "vue-router";
+
 export interface MenuItemType {
-  to: string;
+  to: RouteLocationRaw;
   name: string;
 }
 

@@ -53,25 +53,25 @@
 <script setup lang="ts">
 const { locale, locales, setLocale } = useI18n();
 
-const currentLocale: object = computed(() => {
-  return locales.value.filter((i) => i.code === locale.value)[0];
+const currentLocale: ComputedRef<Locale> = computed(() => {
+  return locales.value.filter((i: Locale) => i.code === locale.value)[0];
 });
-const currentLocaleIndex: number = computed(() => {
+const currentLocaleIndex: ComputedRef<number> = computed(() => {
   return options.value.indexOf(currentLocale.value.name);
 });
-const options: Array<string> = computed(() => {
-  return locales.value.map((locale) => locale.name);
+const options: ComputedRef<Array<string>> = computed(() => {
+  return locales.value.map((locale: Locale) => locale.name);
 });
 
-const comboContainer: null | HTMLLIElement = ref();
-const comboEl: null | HTMLButtonElement = ref();
-const listboxEl: null | HTMLUListElement = ref();
-const optionsEl: Array<HTMLLIElement> = ref([]);
+const comboContainer: Ref<HTMLLIElement | null | undefined> = ref();
+const comboEl: Ref<HTMLButtonElement | null | undefined> = ref();
+const listboxEl: Ref<HTMLUListElement | null | undefined> = ref();
+const optionsEl: Ref<Array<HTMLLIElement>> = ref([]);
 
-const menuOpen: boolean = ref(false);
-const activeIndex: number = ref(currentLocaleIndex.value);
-const searchString: string = ref("");
-const searchTimeout: null | ReturnType<typeof setTimeout> = ref(null);
+const menuOpen: Ref<boolean> = ref(false);
+const activeIndex: Ref<number> = ref(currentLocaleIndex.value);
+const searchString: Ref<string> = ref("");
+const searchTimeout: Ref<null | ReturnType<typeof setTimeout>> = ref(null);
 
 const prefixLangId = "lang-";
 const SelectActions = {
@@ -93,22 +93,22 @@ const SelectActions = {
  */
 const getOptionCode = (index: number): string => {
   const optionName = options.value[index];
-  const locale = locales.value.filter((i) => i.name === optionName)[0];
+  const locale = locales.value.filter((i: Locale) => i.name === optionName)[0];
   return locale.code;
 };
 
 const filterOptions = (
-  options: array = [],
-  filter: srting,
-  exclude: array = [],
-): array => {
+  options: Array<string> = [],
+  filter: string,
+  exclude: Array<string> = [],
+): Array<string> => {
   return options.filter((option) => {
     const matches = option.toLowerCase().indexOf(filter.toLowerCase()) === 0;
     return matches && exclude.indexOf(option) < 0;
   });
 };
 
-const getActionFromKey = (event: Event): number => {
+const getActionFromKey = (event: KeyboardEvent): number | undefined => {
   const { key, altKey, ctrlKey, metaKey } = event;
   const openKeys = ["ArrowDown", "ArrowUp", "Enter", " "];
   if (!menuOpen.value && openKeys.includes(key)) {
@@ -150,7 +150,7 @@ const getActionFromKey = (event: Event): number => {
 };
 
 const getIndexByLetter = (
-  options: array,
+  options: Array<string>,
   filter: string,
   startIndex: number = 0,
 ): number => {
@@ -159,7 +159,8 @@ const getIndexByLetter = (
     ...options.slice(0, startIndex),
   ];
   const firstMatch = filterOptions(orderedOptions, filter)[0];
-  const allSameLetter = (array) => array.every((letter) => letter === array[0]);
+  const allSameLetter = (array: Array<string>) =>
+    array.every((letter: string) => letter === array[0]);
 
   if (firstMatch) {
     return options.indexOf(firstMatch);
@@ -171,7 +172,11 @@ const getIndexByLetter = (
   }
 };
 
-const getUpdatedIndex = (currentIndex, maxIndex, action) => {
+const getUpdatedIndex = (
+  currentIndex: number,
+  maxIndex: number,
+  action: number,
+) => {
   const pageSize = 10;
 
   switch (action) {
@@ -192,7 +197,7 @@ const getUpdatedIndex = (currentIndex, maxIndex, action) => {
   }
 };
 
-const isElementInView = (element) => {
+const isElementInView = (element: HTMLElement) => {
   const bounding = element.getBoundingClientRect();
 
   return (
@@ -205,11 +210,14 @@ const isElementInView = (element) => {
   );
 };
 
-const isScrollable = (element) => {
+const isScrollable = (element: HTMLElement) => {
   return element && element.clientHeight < element.scrollHeight;
 };
 
-const maintainScrollVisibility = (activeElement, scrollParent) => {
+const maintainScrollVisibility = (
+  activeElement: HTMLElement,
+  scrollParent: HTMLElement,
+) => {
   const { offsetHeight, offsetTop } = activeElement;
   const { offsetHeight: parentOffsetHeight, scrollTop } = scrollParent;
 
@@ -223,7 +231,7 @@ const maintainScrollVisibility = (activeElement, scrollParent) => {
   }
 };
 
-const getSearchString = (char) => {
+const getSearchString = (char: string) => {
   if (typeof searchTimeout.value === "number") {
     clearTimeout(searchTimeout.value);
   }
@@ -236,12 +244,12 @@ const getSearchString = (char) => {
   return searchString.value;
 };
 
-const selectOption = (index) => {
+const selectOption = (index: number) => {
   activeIndex.value = index;
   setLocale(getOptionCode(index));
 };
 
-const updateMenuState = (open: boolean, callFocus = true) => {
+const updateMenuState = (open: boolean, callFocus = true): void => {
   if (menuOpen.value === open) {
     return;
   }
@@ -250,18 +258,23 @@ const updateMenuState = (open: boolean, callFocus = true) => {
 
   const activeID = open ? `${prefixLangId}${activeIndex.value}` : "";
 
-  if (activeID === "" && !isElementInView(comboEl.value)) {
+  if (comboEl.value && activeID === "" && !isElementInView(comboEl.value)) {
     comboEl.value.scrollIntoView({ behavior: "smooth", block: "nearest" });
   }
 
-  callFocus && comboEl.value.focus();
+  if (comboEl.value) {
+    callFocus && comboEl.value.focus();
+  }
 };
 
 /*
  * Events listener functions
  */
-const onComboBlur = (event) => {
-  if (listboxEl.value.contains(event.relatedTarget)) {
+const onComboBlur = (event: FocusEvent) => {
+  if (
+    listboxEl.value &&
+    listboxEl.value.contains(event.relatedTarget as Node)
+  ) {
     return;
   }
 
@@ -275,11 +288,11 @@ const onComboClick = () => {
   updateMenuState(!menuOpen.value, false);
 };
 
-const onComboKeyDown = (event) => {
+const onComboKeyDown = (event: KeyboardEvent) => {
   const { key } = event;
   const max = options.value.length - 1;
 
-  const action = getActionFromKey(event, menuOpen.value);
+  const action = getActionFromKey(event);
 
   switch (action) {
     case SelectActions.Last:
@@ -307,7 +320,7 @@ const onComboKeyDown = (event) => {
   }
 };
 
-const onComboType = (letter) => {
+const onComboType = (letter: string) => {
   updateMenuState(true);
 
   const searchStringValue = getSearchString(letter);
@@ -320,15 +333,17 @@ const onComboType = (letter) => {
   if (searchIndex >= 0) {
     onOptionChange(searchIndex);
   } else {
-    clearTimeout(searchTimeout.value);
+    if (searchTimeout.value) {
+      clearTimeout(searchTimeout.value);
+    }
     searchString.value = "";
   }
 };
 
-const onOptionChange = (index) => {
+const onOptionChange = (index: number) => {
   activeIndex.value = index;
 
-  if (isScrollable(listboxEl.value)) {
+  if (listboxEl.value && isScrollable(listboxEl.value)) {
     maintainScrollVisibility(optionsEl.value[index], listboxEl.value);
   }
 
@@ -340,20 +355,20 @@ const onOptionChange = (index) => {
   }
 };
 
-const onOptionClick = (index) => {
+const onOptionClick = (index: number) => {
   onOptionChange(index);
   selectOption(index);
   updateMenuState(false);
 };
 
 onMounted(() => {
-  if (comboEl.value !== null) {
+  if (comboEl.value) {
     comboEl.value.addEventListener("blur", onComboBlur);
     comboEl.value.addEventListener("click", onComboClick);
     comboEl.value.addEventListener("keydown", onComboKeyDown);
   }
 
-  if (listboxEl.value !== null) {
+  if (listboxEl.value) {
     listboxEl.value.addEventListener("focusout", onComboBlur);
   }
 });

@@ -36,7 +36,8 @@ import type { MenuItemType } from "~/components/layout/ts/FixedMenu";
 const route = useRoute();
 const localPath = useLocalePath();
 
-const fixedMenu: null | HTMLElement = ref();
+const fixedMenu: Ref<HTMLElement | null | undefined> = ref();
+const menuOpen: Ref<boolean> = ref(false);
 
 const menuItems: Array<MenuItemType> = [
   {
@@ -57,8 +58,6 @@ const menuItems: Array<MenuItemType> = [
   },
 ];
 
-const menuOpen: boolean = ref(false);
-
 watch(
   () => route.path,
   () => {
@@ -68,7 +67,9 @@ watch(
 
 const closeMenuOutside = (event: Event): void => {
   if (
-    !fixedMenu.value.contains(event.target) &&
+    fixedMenu.value !== null &&
+    fixedMenu.value !== undefined &&
+    !fixedMenu.value.contains(event!.target as Node) &&
     event.target !== fixedMenu.value
   ) {
     toggleMenu(false);
