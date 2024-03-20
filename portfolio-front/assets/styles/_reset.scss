@@ -27,7 +27,9 @@ ol[role='list'] {
 /* Set core body defaults */
 body {
   margin: 0;
-  font-family: var(--primary-font-family);
+  padding-bottom: 2rem;
+  background-color: $grey-background;
+  font-family: $primary-font-family;
   line-height: 1.5;
   @media screen and (max-width: $breakpoint-md) {
     &.no-scroll {
