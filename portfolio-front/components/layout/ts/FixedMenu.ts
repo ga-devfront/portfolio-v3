@@ -12,4 +12,4 @@ export const MenuItemPros = {
     type: String,
     required: true,
   },
-}
+};

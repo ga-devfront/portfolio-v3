@@ -16,11 +16,15 @@ front-npm-command: ## Launch any npm command with COMMAND parameter
 ##
 ## Front qualimetry
 ## ----------
-.PHONY: front-lint front-lint-fix front-type-check
+.PHONY: front-lint front-lint-fix front-prettier front-prettier-fix front-type-check front-style-lint front-style-lint-fix
 front-lint: ## Lint front with ESLINT
 	$(DOCKER_COMPOSE) run --user ${LOCAL_USER_UID}:${LOCAL_USER_GID} --rm node sh -c "npm run lint;";
 front-lint-fix: ## Lint front and fix resolvable errors with ESLINT
 	$(DOCKER_COMPOSE) run --user ${LOCAL_USER_UID}:${LOCAL_USER_GID} --rm node sh -c "npm run lint:fix;";
+front-prettier: ## Lint front with Prettier
+	$(DOCKER_COMPOSE) run --user ${LOCAL_USER_UID}:${LOCAL_USER_GID} --rm node sh -c "npm run prettier;";
+front-prettier-fix: ## Lint front and fix resolvable errors with Prettier
+	$(DOCKER_COMPOSE) run --user ${LOCAL_USER_UID}:${LOCAL_USER_GID} --rm node sh -c "npm run prettier:fix;";
 front-type-check: ## Check TS types
 	$(DOCKER_COMPOSE) run --user ${LOCAL_USER_UID}:${LOCAL_USER_GID} --rm node sh -c "npx nuxi typecheck;";
 front-style-lint: ## Lint front SCSS files

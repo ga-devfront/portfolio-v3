@@ -1,14 +1,14 @@
 export default {
-  helloWorld: 'Bonjour Monde !',
-  logoAlt: 'Alexis Guyomar Logo',
+  helloWorld: "Bonjour Monde !",
+  logoAlt: "Alexis Guyomar Logo",
   routes: {
-    home: 'Accueil',
-    resume: 'Carrière',
-    projects: 'Projets',
-    contact: 'Contact',
+    home: "Accueil",
+    resume: "Carrière",
+    projects: "Projets",
+    contact: "Contact",
   },
-  menuLabel: 'Menu principal',
+  menuLabel: "Menu principal",
   action: {
-    changeLanguage: 'Changer de langue'
-  }
-}
+    changeLanguage: "Changer de langue",
+  },
+};

@@ -1,7 +1,4 @@
 <template>
-  <div>
-    RESUME
-  </div>
+  <div>RESUME</div>
 </template>
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>

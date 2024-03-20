@@ -1,9 +1,6 @@
 <template>
   <li class="menu-item">
-    <NuxtLink
-      :to="localPath(props.to)"
-      class="menu-item__link"
-    >
+    <NuxtLink :to="localPath(props.to)" class="menu-item__link">
       <span class="menu-item__text">
         {{ $t(props.name) }}
       </span>

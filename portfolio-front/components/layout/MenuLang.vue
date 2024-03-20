@@ -4,11 +4,8 @@
     class="menu-lang"
     :class="{ 'menu-lang--open': menuOpen }"
   >
-    <label
-      id="menu-lang__label"
-      class="sr-only"
-    >
-      {{ $t('action.changeLanguage') }}
+    <label id="menu-lang__label" class="sr-only">
+      {{ $t("action.changeLanguage") }}
     </label>
     <button
       id="lang-select"
@@ -23,10 +20,7 @@
       tabindex="0"
     >
       <span>{{ currentLocale.name }}</span>
-      <i
-        class="icon-dropdown ri-arrow-drop-down-line"
-        aria-hidden="true"
-      />
+      <i class="icon-dropdown ri-arrow-drop-down-line" aria-hidden="true" />
     </button>
     <ul
       id="lang-choices"
@@ -43,7 +37,10 @@
         ref="optionsEl"
         role="option"
         class="menu-lang__option"
-        :class="{ 'menu-lang__option--selected': activeIndex === index, 'menu-lang__option--current': currentLocaleIndex === index }"
+        :class="{
+          'menu-lang__option--selected': activeIndex === index,
+          'menu-lang__option--current': currentLocaleIndex === index,
+        }"
         :aria-selected="activeIndex === index"
         @click.stop="onOptionClick(index)"
       >
@@ -57,26 +54,26 @@
 const { locale, locales, setLocale } = useI18n();
 
 const currentLocale: object = computed(() => {
-  return (locales.value).filter(i => i.code === locale.value)[0];
-})
+  return locales.value.filter((i) => i.code === locale.value)[0];
+});
 const currentLocaleIndex: number = computed(() => {
   return options.value.indexOf(currentLocale.value.name);
-})
+});
 const options: Array<string> = computed(() => {
   return locales.value.map((locale) => locale.name);
-})
+});
 
-const comboContainer: null|HTMLLIElement = ref();
-const comboEl: null|HTMLButtonElement = ref();
-const listboxEl: null|HTMLUListElement = ref();
+const comboContainer: null | HTMLLIElement = ref();
+const comboEl: null | HTMLButtonElement = ref();
+const listboxEl: null | HTMLUListElement = ref();
 const optionsEl: Array<HTMLLIElement> = ref([]);
 
 const menuOpen: boolean = ref(false);
 const activeIndex: number = ref(currentLocaleIndex.value);
-const searchString: string = ref('');
-const searchTimeout: null|ReturnType<typeof setTimeout> = ref(null);
+const searchString: string = ref("");
+const searchTimeout: null | ReturnType<typeof setTimeout> = ref(null);
 
-const prefixLangId = 'lang-';
+const prefixLangId = "lang-";
 const SelectActions = {
   Close: 0,
   CloseSelect: 1,
@@ -91,65 +88,72 @@ const SelectActions = {
   Type: 10,
 };
 
-
 /*
  * Helper functions
  */
 const getOptionCode = (index: number): string => {
-  const optionName = options.value[index]
-  const locale = (locales.value).filter(i => i.name === optionName)[0]
-  return locale.code
-}
+  const optionName = options.value[index];
+  const locale = locales.value.filter((i) => i.name === optionName)[0];
+  return locale.code;
+};
 
-const filterOptions = (options: array = [], filter: srting, exclude: array = []): array => {
+const filterOptions = (
+  options: array = [],
+  filter: srting,
+  exclude: array = [],
+): array => {
   return options.filter((option) => {
     const matches = option.toLowerCase().indexOf(filter.toLowerCase()) === 0;
     return matches && exclude.indexOf(option) < 0;
   });
-}
+};
 
 const getActionFromKey = (event: Event): number => {
   const { key, altKey, ctrlKey, metaKey } = event;
-  const openKeys = ['ArrowDown', 'ArrowUp', 'Enter', ' '];
+  const openKeys = ["ArrowDown", "ArrowUp", "Enter", " "];
   if (!menuOpen.value && openKeys.includes(key)) {
     return SelectActions.Open;
   }
 
-  if (key === 'Home') {
+  if (key === "Home") {
     return SelectActions.First;
   }
-  if (key === 'End') {
+  if (key === "End") {
     return SelectActions.Last;
   }
 
   if (
-      key === 'Backspace' ||
-      key === 'Clear' ||
-      (key.length === 1 && key !== ' ' && !altKey && !ctrlKey && !metaKey)
+    key === "Backspace" ||
+    key === "Clear" ||
+    (key.length === 1 && key !== " " && !altKey && !ctrlKey && !metaKey)
   ) {
     return SelectActions.Type;
   }
 
   if (menuOpen.value) {
-    if (key === 'ArrowUp' && altKey) {
+    if (key === "ArrowUp" && altKey) {
       return SelectActions.CloseSelect;
-    } else if (key === 'ArrowDown' && !altKey) {
+    } else if (key === "ArrowDown" && !altKey) {
       return SelectActions.Next;
-    } else if (key === 'ArrowUp') {
+    } else if (key === "ArrowUp") {
       return SelectActions.Previous;
-    } else if (key === 'PageUp') {
+    } else if (key === "PageUp") {
       return SelectActions.PageUp;
-    } else if (key === 'PageDown') {
+    } else if (key === "PageDown") {
       return SelectActions.PageDown;
-    } else if (key === 'Escape') {
+    } else if (key === "Escape") {
       return SelectActions.Close;
-    } else if (key === 'Enter' || key === ' ') {
+    } else if (key === "Enter" || key === " ") {
       return SelectActions.CloseSelect;
     }
   }
-}
+};
 
-const getIndexByLetter = (options: array, filter: string, startIndex: number = 0): number => {
+const getIndexByLetter = (
+  options: array,
+  filter: string,
+  startIndex: number = 0,
+): number => {
   const orderedOptions = [
     ...options.slice(startIndex),
     ...options.slice(0, startIndex),
@@ -159,17 +163,13 @@ const getIndexByLetter = (options: array, filter: string, startIndex: number = 0
 
   if (firstMatch) {
     return options.indexOf(firstMatch);
-  }
-
-  else if (allSameLetter(filter.split(''))) {
+  } else if (allSameLetter(filter.split(""))) {
     const matches = filterOptions(orderedOptions, filter[0]);
     return options.indexOf(matches[0]);
-  }
-
-  else {
+  } else {
     return -1;
   }
-}
+};
 
 const getUpdatedIndex = (currentIndex, maxIndex, action) => {
   const pageSize = 10;
@@ -190,24 +190,24 @@ const getUpdatedIndex = (currentIndex, maxIndex, action) => {
     default:
       return currentIndex;
   }
-}
+};
 
 const isElementInView = (element) => {
   const bounding = element.getBoundingClientRect();
 
   return (
-      bounding.top >= 0 &&
-      bounding.left >= 0 &&
-      bounding.bottom <=
+    bounding.top >= 0 &&
+    bounding.left >= 0 &&
+    bounding.bottom <=
       (window.innerHeight || document.documentElement.clientHeight) &&
-      bounding.right <=
+    bounding.right <=
       (window.innerWidth || document.documentElement.clientWidth)
   );
-}
+};
 
 const isScrollable = (element) => {
   return element && element.clientHeight < element.scrollHeight;
-}
+};
 
 const maintainScrollVisibility = (activeElement, scrollParent) => {
   const { offsetHeight, offsetTop } = activeElement;
@@ -221,15 +221,15 @@ const maintainScrollVisibility = (activeElement, scrollParent) => {
   } else if (isBelow) {
     scrollParent.scrollTo(0, offsetTop - parentOffsetHeight + offsetHeight);
   }
-}
+};
 
 const getSearchString = (char) => {
-  if (typeof searchTimeout.value === 'number') {
+  if (typeof searchTimeout.value === "number") {
     clearTimeout(searchTimeout.value);
   }
 
   searchTimeout.value = setTimeout(() => {
-    searchString.value = '';
+    searchString.value = "";
   }, 400);
 
   searchString.value += char;
@@ -238,7 +238,7 @@ const getSearchString = (char) => {
 
 const selectOption = (index) => {
   activeIndex.value = index;
-  setLocale(getOptionCode(index))
+  setLocale(getOptionCode(index));
 };
 
 const updateMenuState = (open: boolean, callFocus = true) => {
@@ -248,10 +248,10 @@ const updateMenuState = (open: boolean, callFocus = true) => {
 
   menuOpen.value = open;
 
-  const activeID = open ? `${prefixLangId}${activeIndex.value}` : '';
+  const activeID = open ? `${prefixLangId}${activeIndex.value}` : "";
 
-  if (activeID === '' && !isElementInView(comboEl.value)) {
-    comboEl.value.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  if (activeID === "" && !isElementInView(comboEl.value)) {
+    comboEl.value.scrollIntoView({ behavior: "smooth", block: "nearest" });
   }
 
   callFocus && comboEl.value.focus();
@@ -285,19 +285,17 @@ const onComboKeyDown = (event) => {
     case SelectActions.Last:
     case SelectActions.First:
       updateMenuState(true);
-      // fallsthrough
+    // fallsthrough
     case SelectActions.Next:
     case SelectActions.Previous:
     case SelectActions.PageUp:
     case SelectActions.PageDown:
       event.preventDefault();
-      return onOptionChange(
-          getUpdatedIndex(activeIndex.value, max, action)
-      );
+      return onOptionChange(getUpdatedIndex(activeIndex.value, max, action));
     case SelectActions.CloseSelect:
       event.preventDefault();
       selectOption(activeIndex.value);
-      // fallsthrough
+    // fallsthrough
     case SelectActions.Close:
       event.preventDefault();
       return updateMenuState(false);
@@ -314,18 +312,16 @@ const onComboType = (letter) => {
 
   const searchStringValue = getSearchString(letter);
   const searchIndex = getIndexByLetter(
-      options.value,
-      searchStringValue,
-      activeIndex.value + 1
+    options.value,
+    searchStringValue,
+    activeIndex.value + 1,
   );
 
   if (searchIndex >= 0) {
     onOptionChange(searchIndex);
-  }
-
-  else {
+  } else {
     clearTimeout(searchTimeout.value);
-    searchString.value = '';
+    searchString.value = "";
   }
 };
 
@@ -337,7 +333,10 @@ const onOptionChange = (index) => {
   }
 
   if (!isElementInView(optionsEl.value[index])) {
-    optionsEl.value[index].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    optionsEl.value[index].scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+    });
   }
 };
 
@@ -349,14 +348,13 @@ const onOptionClick = (index) => {
 
 onMounted(() => {
   if (comboEl.value !== null) {
-    comboEl.value.addEventListener('blur', onComboBlur);
-    comboEl.value.addEventListener('click', onComboClick);
-    comboEl.value.addEventListener('keydown', onComboKeyDown);
+    comboEl.value.addEventListener("blur", onComboBlur);
+    comboEl.value.addEventListener("click", onComboClick);
+    comboEl.value.addEventListener("keydown", onComboKeyDown);
   }
 
   if (listboxEl.value !== null) {
-    listboxEl.value.addEventListener('focusout', onComboBlur);
+    listboxEl.value.addEventListener("focusout", onComboBlur);
   }
-})
-
+});
 </script>

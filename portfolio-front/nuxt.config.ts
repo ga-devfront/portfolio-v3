@@ -1,34 +1,32 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ['@pinia/nuxt', '@nuxtjs/i18n'],
+  modules: ["@pinia/nuxt", "@nuxtjs/i18n"],
   i18n: {
     seo: true,
-    strategy: 'prefix_and_default',
-    langDir: 'locales/',
+    strategy: "prefix_and_default",
+    langDir: "locales/",
     lazy: true,
     baseUrl: process.env.NUXT_BASE_URL,
-    defaultLocale: 'en',
+    defaultLocale: "en",
     locales: [
       {
-        name: 'English',
-        code: 'en',
-        iso: 'en',
-        file: 'en/index.ts'
+        name: "English",
+        code: "en",
+        iso: "en",
+        file: "en/index.ts",
       },
       {
-        name: 'Français',
-        code: 'fr',
-        iso: 'fr',
-        file: 'fr/index.ts'
-      }
+        name: "Français",
+        code: "fr",
+        iso: "fr",
+        file: "fr/index.ts",
+      },
     ],
     detectBrowserLanguage: {
       useCookie: true,
-      cookieKey: 'i18n_redirected',
-      redirectOn: 'root'
-    }
+      cookieKey: "i18n_redirected",
+      redirectOn: "root",
+    },
   },
-  css: [
-    'assets/styles/index.scss'
-  ]
-})
+  css: ["assets/styles/index.scss"],
+});

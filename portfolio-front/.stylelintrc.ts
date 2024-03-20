@@ -1,9 +1,6 @@
 export default {
-  "plugins": [
-    "stylelint-scss",
-    "stylelint-order",
-  ],
-  "rules": {
+  plugins: ["stylelint-scss", "stylelint-order"],
+  rules: {
     "alpha-value-notation": "number",
     "annotation-no-unknown": true,
     "at-rule-empty-line-before": null,
@@ -15,8 +12,8 @@ export default {
     "comment-empty-line-before": [
       "always",
       {
-        "except": ["first-nested"]
-      }
+        except: ["first-nested"],
+      },
     ],
     "comment-no-empty": null,
     "comment-whitespace-inside": "always",
@@ -25,32 +22,33 @@ export default {
     "declaration-block-no-redundant-longhand-properties": [
       true,
       {
-        "severity": "warning"
+        severity: "warning",
       },
       {
-        "ignoreShorthands": ["/flex/", "/grid/", "/padding/"]
-      }
+        ignoreShorthands: ["/flex/", "/grid/", "/padding/"],
+      },
     ],
     "declaration-block-no-shorthand-property-overrides": true,
     "declaration-block-single-line-max-declarations": 1,
     "declaration-empty-line-before": "never",
     "declaration-no-important": [
-      true, {
-        "severity": "warning"
-      }
+      true,
+      {
+        severity: "warning",
+      },
     ],
     "font-family-name-quotes": [
       "always-unless-keyword",
       {
-        "severity": "warning"
-      }
+        severity: "warning",
+      },
     ],
     "font-family-no-duplicate-names": true,
     "font-family-no-missing-generic-family-keyword": [
       true,
       {
-        "severity": "warning"
-      }
+        severity: "warning",
+      },
     ],
     "font-weight-notation": "numeric",
     "function-calc-no-unspaced-operator": true,
@@ -61,8 +59,8 @@ export default {
     "function-url-quotes": [
       "always",
       {
-        "severity": "warning"
-      }
+        severity: "warning",
+      },
     ],
     "hue-degree-notation": "angle",
     "import-notation": "string",
@@ -76,8 +74,8 @@ export default {
     "no-descending-specificity": [
       true,
       {
-        "severity": "warning"
-      }
+        severity: "warning",
+      },
     ],
     "no-duplicate-at-import-rules": true,
     "no-duplicate-selectors": null,
@@ -95,18 +93,15 @@ export default {
     "property-no-unknown": [
       true,
       {
-        "checkPrefixed": true,
-        "severity": "warning"
-      }
+        checkPrefixed: true,
+        severity: "warning",
+      },
     ],
     "rule-empty-line-before": [
       "always",
       {
-        "ignore": [
-          "first-nested",
-          "after-comment"
-        ]
-      }
+        ignore: ["first-nested", "after-comment"],
+      },
     ],
     "selector-not-notation": "simple",
     "selector-pseudo-class-no-unknown": true,
@@ -115,8 +110,8 @@ export default {
     "selector-type-case": [
       "lower",
       {
-        "severity": "warning"
-      }
+        severity: "warning",
+      },
     ],
     "selector-type-no-unknown": true,
     "shorthand-property-no-redundant-values": true,
@@ -132,15 +127,15 @@ export default {
       "declarations",
       "rules",
       {
-        "type": "at-rule",
-        "hasBlock": true,
+        type: "at-rule",
+        hasBlock: true,
       },
     ],
     "order/properties-order": [
       {
-        "emptyLineBefore": "never",
-        "noEmptyLineBetween": false,
-        "properties": [
+        emptyLineBefore: "never",
+        noEmptyLineBetween: false,
+        properties: [
           // Specials
           "all",
           "content",
@@ -494,11 +489,11 @@ export default {
     ],
     "order/properties-alphabetical-order": null,
   },
-  "overrides": [
+  overrides: [
     {
-      "files": ["*.scss", "**/*.scss"],
-      "customSyntax": "postcss-scss",
-      "rules": {
+      files: ["*.scss", "**/*.scss"],
+      customSyntax: "postcss-scss",
+      rules: {
         // CSS Override
         "at-rule-no-unknown": null,
         "no-duplicate-selectors": true,
@@ -508,20 +503,21 @@ export default {
         "scss/at-extend-no-missing-placeholder": [
           true,
           {
-            "severity": "warning"
-          }
+            severity: "warning",
+          },
         ],
         "scss/at-function-pattern": [
           "^(-?[a-z][a-z0-9]*)(-[a-z0-9]+)*$",
           {
-            "message": "Expected function name to be kebab-case",
+            message: "Expected function name to be kebab-case",
           },
         ],
         "scss/at-if-no-null": [
           true,
           {
-            "severity": "warning",
-            "message": "Equality to null is explicit since null is falsey in Sass, use '@if not $my-var' to check null value",
+            severity: "warning",
+            message:
+              "Equality to null is explicit since null is falsey in Sass, use '@if not $my-var' to check null value",
           },
         ],
         "scss/at-import-partial-extension": "never",
@@ -529,7 +525,7 @@ export default {
         "scss/at-mixin-pattern": [
           "^(-?[a-z][a-z0-9]*)(-[a-z0-9]+)*$",
           {
-            "message": "Expected mixin name to be kebab-case",
+            message: "Expected mixin name to be kebab-case",
           },
         ],
         "scss/dollar-variable-no-missing-interpolation": true,
@@ -552,8 +548,9 @@ export default {
         "scss/function-color-relative": [
           true,
           {
-            "severity": "warning",
-            "message": "Try to use color functions to manipulate colors with : @use \"sass:color\";",
+            severity: "warning",
+            message:
+              'Try to use color functions to manipulate colors with : @use "sass:color";',
           },
         ],
         "scss/function-quote-no-quoted-strings-inside": true,
@@ -561,32 +558,32 @@ export default {
         "scss/map-keys-quotes": [
           "always",
           {
-            "severity": "warning",
-            "message": "Expected to use quotes on keys in Sass maps.",
+            severity: "warning",
+            message: "Expected to use quotes on keys in Sass maps.",
           },
         ],
         "scss/media-feature-value-dollar-variable": [
           "always",
           {
-            "severity": "warning",
-            "message": "Expected to use a $var in media feature value.",
+            severity: "warning",
+            message: "Expected to use a $var in media feature value.",
           },
         ],
         "scss/selector-no-redundant-nesting-selector": [
           true,
           {
-            "severity": "warning",
-            "message": "Expected no redundant nesting selector (&).",
+            severity: "warning",
+            message: "Expected no redundant nesting selector (&).",
           },
         ],
-        "scss/no-duplicate-mixins":[
+        "scss/no-duplicate-mixins": [
           true,
           {
-            "severity": "warning",
-            "message": "Expected no duplicate mixins.",
+            severity: "warning",
+            message: "Expected no duplicate mixins.",
           },
         ],
-      }
-    }
+      },
+    },
   ],
-}
+};
