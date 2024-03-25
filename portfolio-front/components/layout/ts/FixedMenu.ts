@@ -5,7 +5,7 @@ export interface MenuItemType {
   name: string;
 }
 
-export const MenuItemPros = {
+export const MenuItemProps = {
   to: {
     type: String,
     required: true,

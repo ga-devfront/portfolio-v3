@@ -9,9 +9,9 @@
 </template>
 
 <script setup lang="ts">
-import { MenuItemPros } from "~/components/layout/ts/FixedMenu";
+import { MenuItemProps } from "./ts/FixedMenu";
 
-const props = defineProps(MenuItemPros);
+const props = defineProps(MenuItemProps);
 
 const localPath = useLocalePath();
 </script>
