@@ -29,7 +29,7 @@ jobs:
           sudo chmod 600 ../private.key
           ssh-keyscan -H ${{secrets.VPS_HOST}} > ~/.ssh/known_hosts
           ssh -i $SSH_KEY_PATH ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }} "pm2 stop preprod-portfolio && pm2 delete preprod-portfolio && rm -rf ${{ secrets.PREPROD_FOLDER }}/*"
-          scp -i $SSH_KEY_PATH -r portfolio-front/* ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }}:${{ secrets._PREPROD_FOLDER }}
+          scp -i $SSH_KEY_PATH -r portfolio-front/* ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }}:${{ secrets.PREPROD_FOLDER }}
 
       - name: Launch app
         env:
