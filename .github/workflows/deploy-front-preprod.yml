@@ -1,0 +1,38 @@
+name: Deploy front app on pre production
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  deploy-preprod:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install SSH client
+        run: sudo apt-get install -y openssh-client
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 16.x
+
+      - name: Upload to VPS
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.VPS_SSH_KEY }}
+          SSH_KEY_PATH: ${{ github.workspace }}/../private.key
+        shell: bash
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_PRIVATE_KEY" > ../private.key
+          sudo chmod 600 ../private.key
+          ssh-keyscan -H ${{secrets.VPS_HOST}} > ~/.ssh/known_hosts
+          ssh -i $SSH_KEY_PATH ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }} "pm2 stop preprod-portfolio && pm2 delete preprod-portfolio && rm -rf ${{ secrets.PREPROD_FOLDER }}/*"
+          scp -i $SSH_KEY_PATH -r portfolio-front/* ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }}:${{ secrets.PREPROD_FOLDER }}
+
+      - name: Launch app
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.VPS_SSH_KEY }}
+        shell: bash
+        run: ssh -i $SSH_KEY_PATH ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }} "cd ${{ secrets.VPS_PROJECT_FOLDER }} && npm install && npm build && pm2 start preprod-ecosystem.config.cjs"
