@@ -1,6 +1,5 @@
 <template>
-  <nuxt-layout>
-    <nuxt-page />
-  </nuxt-layout>
+  <div>PROJECTS</div>
 </template>
+
 <script setup lang="ts"></script>

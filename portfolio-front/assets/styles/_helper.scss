@@ -1,0 +1,28 @@
+.sr-only {
+  /* stylelint-disable-next-line declaration-no-important */
+  position: absolute !important;
+
+  /* stylelint-disable-next-line declaration-no-important */
+  clip: rect(1px, 1px, 1px, 1px) !important;
+
+  /* stylelint-disable-next-line declaration-no-important */
+  clip-path: inset(50%) !important;
+
+  /* stylelint-disable-next-line declaration-no-important */
+  padding: 0 !important;
+
+  /* stylelint-disable-next-line declaration-no-important */
+  width: 1px !important;
+
+  /* stylelint-disable-next-line declaration-no-important */
+  height: 1px !important;
+
+  /* stylelint-disable-next-line declaration-no-important */
+  overflow: hidden !important;
+
+  /* stylelint-disable-next-line declaration-no-important */
+  border: 0 !important;
+
+  /* stylelint-disable-next-line declaration-no-important */
+  white-space: nowrap !important;
+}

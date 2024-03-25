@@ -1,6 +1,4 @@
 <template>
-  <nuxt-layout>
-    <nuxt-page />
-  </nuxt-layout>
+  <div>RESUME</div>
 </template>
 <script setup lang="ts"></script>
