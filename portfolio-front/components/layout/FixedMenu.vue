@@ -9,7 +9,7 @@
       {{ $t("menuLabel") }}
     </label>
     <NuxtLink :to="localPath('index')" class="fixed-menu__logo">
-      <img src="/logo.svg" :alt="$t('logoAlt')" />
+      <img src="/logo.svg" :alt="$t('logoAlt')" width="49.5px" height="50px" />
     </NuxtLink>
     <button class="fixed-menu__toggle-button" @click="toggleMenu(!menuOpen)">
       <i
