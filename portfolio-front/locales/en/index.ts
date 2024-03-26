@@ -1,13 +1,33 @@
 export default {
-  helloWorld: "Hello World !",
-  logoAlt: "Alexis Guyomar Logo",
-  routes: {
-    home: "Home",
-    resume: "Resume",
-    projects: "Projects",
-    contact: "Contact",
+  layout: {
+    title: "AG Dev",
+    header: {
+      menu: {
+        label: "Main Menu",
+      },
+      logo: {
+        alt: "Alexis Guyomar Logo",
+      },
+    },
   },
-  menuLabel: "Main Menu",
+  pages: {
+    home: {
+      link: "Home",
+      title: "Welcome to my portfolio",
+    },
+    resume: {
+      link: "Resume",
+      title: "Resume",
+    },
+    projects: {
+      link: "Projects",
+      title: "Projects",
+    },
+    contact: {
+      link: "Contact",
+      title: "Contact",
+    },
+  },
   action: {
     changeLanguage: "Change language",
   },

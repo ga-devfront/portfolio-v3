@@ -27,6 +27,9 @@ export default defineNuxtConfig({
       cookieKey: "i18n_redirected",
       redirectOn: "root",
     },
+    routeRules: {
+      "/_nuxt/**": { headers: { "cache-control": "s-maxage=86400" } },
+    },
   },
   css: ["assets/styles/index.scss"],
 });
