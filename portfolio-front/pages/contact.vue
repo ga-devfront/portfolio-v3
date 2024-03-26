@@ -1,5 +1,5 @@
 <template>
-  <div>CONTACT</div>
+  <div>{{ $t("pages.contact.title") }}</div>
 </template>
 
 <script setup lang="ts"></script>

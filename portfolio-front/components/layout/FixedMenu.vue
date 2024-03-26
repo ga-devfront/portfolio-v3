@@ -6,10 +6,15 @@
     aria-labelledby="fixed-menu__label"
   >
     <label id="fixed-menu__label" class="sr-only">
-      {{ $t("menuLabel") }}
+      {{ $t("layout.header.menu.label") }}
     </label>
     <NuxtLink :to="localPath('index')" class="fixed-menu__logo">
-      <img src="/logo.svg" :alt="$t('logoAlt')" />
+      <img
+        src="/logo.svg"
+        :alt="$t('layout.header.logo.alt')"
+        width="49.5px"
+        height="50px"
+      />
     </NuxtLink>
     <button class="fixed-menu__toggle-button" @click="toggleMenu(!menuOpen)">
       <i
@@ -42,19 +47,19 @@ const menuOpen: Ref<boolean> = ref(false);
 const menuItems: Array<MenuItemType> = [
   {
     to: "index",
-    name: "routes.home",
+    name: "pages.home.link",
   },
   {
     to: "resume",
-    name: "routes.resume",
+    name: "pages.resume.link",
   },
   {
     to: "projects",
-    name: "routes.projects",
+    name: "pages.projects.link",
   },
   {
     to: "contact",
-    name: "routes.contact",
+    name: "pages.contact.link",
   },
 ];
 

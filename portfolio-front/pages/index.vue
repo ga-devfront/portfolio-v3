@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1>HOME</h1>
+    <h1>{{ $t("pages.home.title") }}</h1>
 
     <h2>What is Lorem Ipsum?</h2>
     <p>
@@ -101,5 +101,7 @@
   </div>
 </template>
 <script setup lang="ts">
-// const switchLocalePath = useSwitchLocalePath()
+definePageMeta({
+  title: "pages.home.title",
+});
 </script>
